@@ -51,36 +51,35 @@ def get_CFTC_COT_FFOP_hist(category):
     """
     if category == 'financial':    
         try:    
-            df = pd.read_pickle('C:/Users/jenso/Dropbox/Kyrtos/Python/CFTC Data/06_17_CFTC_FFOP.pkl')
+            df = pd.read_pickle('06_17_CFTC_FFOP.pkl')
         except:    
             # see answer here: https://stackoverflow.com/questions/49575183/dtypewarning-columns-15-16-18-24-have-mixed-types-columns-get-removed-if-it
-            df0616 = pd.read_csv('C:/Users/jenso/Dropbox/Kyrtos/Python/CFTC Data/F_TFF_2006_2016.txt',
-                                  dtype={3: str, 82: str}) 
+            df0616 = pd.read_csv('F_TFF_2006_2016.txt', dtype={3: str, 82: str}) 
 
-            df17 = pd.read_csv('C:/Users/jenso/Dropbox/Kyrtos/Python/CFTC Data/FinFut17.txt')
-            df18 = pd.read_csv('C:/Users/jenso/Dropbox/Kyrtos/Python/CFTC Data/FinFut18.txt')
+            df17 = pd.read_csv('FinFut17.txt')
+            df18 = pd.read_csv('FinFut18.txt')
             df1718 = df17.append(df18, sort=False)
             
             df = df0616.append(df1718, sort=False)
             df.set_index('Report_Date_as_YYYY-MM-DD', drop=True, inplace=True)
             df.index = pd.to_datetime(df.index, infer_datetime_format=True)
             del df.index.name
-            df.to_pickle('C:/Users/jenso/Dropbox/Kyrtos/Python/CFTC Data/06_17_CFTC_FFOP.pkl')
+            df.to_pickle('06_17_CFTC_FFOP.pkl')
         
     else:
         try:    
-            df = pd.read_pickle('C:/Users/jenso/Dropbox/Kyrtos/Python/CFTC Data/06_17_CFTC_FFOP_commodity.pkl')
+            df = pd.read_pickle('06_17_CFTC_FFOP_commodity.pkl')
         except:    
             # see answer here: https://stackoverflow.com/questions/49575183/dtypewarning-columns-15-16-18-24-have-mixed-types-columns-get-removed-if-it
-            df0616 = pd.read_csv('C:/Users/jenso/Dropbox/Kyrtos/Python/CFTC Data/F_Disagg06_16.txt',
+            df0616 = pd.read_csv('F_Disagg06_16.txt',
                                  dtype=dict.fromkeys([3, 120, 121, 125, 133, 134, 135, 145,
                                                       146, 147, 148, 149, 150, 151, 152, 153,
                                                       154, 155, 156, 157, 158, 159, 160, 186], str))
 
-            df17 = pd.read_csv('C:/Users/jenso/Dropbox/Kyrtos/Python/CFTC Data/f_17.txt',
+            df17 = pd.read_csv('f_17.txt',
                                dtype=dict.fromkeys([133, 145, 146, 147, 148, 149, 159, 160], str))
             
-            df18 = pd.read_csv('C:/Users/jenso/Dropbox/Kyrtos/Python/CFTC Data/f_18.txt',
+            df18 = pd.read_csv('f_18.txt',
                                dtype=dict.fromkeys([133, 145, 146, 147, 148, 149, 159, 160], str))
 
             df1718 = df17.append(df18, sort=False)
@@ -89,7 +88,7 @@ def get_CFTC_COT_FFOP_hist(category):
             df.set_index('Report_Date_as_YYYY-MM-DD', drop=True, inplace=True)
             df.index = pd.to_datetime(df.index, infer_datetime_format=True)
             del df.index.name
-            df.to_pickle('C:/Users/jenso/Dropbox/Kyrtos/Python/CFTC Data/06_17_CFTC_FFOP_commodity.pkl')
+            df.to_pickle('06_17_CFTC_FFOP_commodity.pkl')
         
     return df
 
